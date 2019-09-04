@@ -66,7 +66,7 @@ func main() {
 	width := getTerminalWidth()
 
 	max1s := 0
-	max10s := 0
+	max10s := 0.0
 
 loop:
 	for {
@@ -76,7 +76,7 @@ loop:
 			rate10s.Increase()
 
 			speed1s := rate1s.Get()
-			speed10s := rate10s.Get()
+			speed10s := float64(rate10s.Get()) / 10
 
 			if speed1s > max1s {
 				max1s = speed1s
@@ -86,7 +86,7 @@ loop:
 			}
 
 			line := fmt.Sprintf(
-				"k/s (1s): %v (10s): %v | max (1s): %v (10s): %v",
+				"k/s (1s): %v (avg 10s): %.2f | max (1s): %v (avg 10s): %.2f",
 				speed1s,
 				speed10s,
 				max1s,
